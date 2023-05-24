@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  data_table_2:
+    dependency: "direct main"
+    description:
+      name: data_table_2
+      sha256: ac04091abae6d24b4bee7abc5077b06eae54160d662a8d655e8e43e51537ba82
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
   dbus:
     dependency: transitive
     description:
@@ -128,6 +136,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "959ef4add147753f990b4a7c6cccb746d5792dbdc81b1cde99e62e7edb31b206"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.4.0"
   http:
     dependency: transitive
     description:
@@ -349,5 +365,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0-417 <4.0.0"
-  flutter: ">=3.3.0"
+  dart: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"

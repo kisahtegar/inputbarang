@@ -22,8 +22,10 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
+  data_table_2: ^2.5.0
   flutter:
     sdk: flutter
+  font_awesome_flutter: ^10.4.0
   serverpod_flutter: ^1.1.0
   inputbarang_client:
     path: ../inputbarang_client

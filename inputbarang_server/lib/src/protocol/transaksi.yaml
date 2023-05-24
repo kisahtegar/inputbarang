@@ -1,0 +1,13 @@
+# Name of the class to generate.
+class: Transaksi
+
+# Add the table key, if this class represents a row in the database.
+table: transaksi
+
+# The fields (and columns if connected to the database) of the class. Supported
+# types are `bool`, `int`, `double`, `String`, `DateTime`, and any other
+# generated classes. You can also add lists of objects and types have support
+# for null safety. Eg. `List<int>?` or `List<MyOtherClass?>`.
+fields:
+  supplierId: int, parent=supplier
+  tanggal_transaksi: DateTime
