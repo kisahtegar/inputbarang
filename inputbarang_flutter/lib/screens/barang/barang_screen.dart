@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:inputbarang_client/inputbarang_client.dart';
 
+import '../../const/constants.dart';
+import '../../components/input_data_widget.dart';
 import '../../components/page_banner_widget.dart';
 import '../../main.dart';
 
@@ -65,6 +67,12 @@ class _BarangScreenState extends State<BarangScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _showDaftarBarangDialog,
+        backgroundColor: ColorConst.bgColor,
+        icon: const Icon(Icons.add_box),
+        label: const Text('Tambah Barang'),
+      ),
     );
   }
 
@@ -91,6 +99,16 @@ class _BarangScreenState extends State<BarangScreen> {
             numeric: false,
             tooltip: "Jenis Barang",
           ),
+          DataColumn(
+            label: Text('Update'),
+            numeric: false,
+            tooltip: "Update",
+          ),
+          DataColumn(
+            label: Text('Delete'),
+            numeric: false,
+            tooltip: "Delete",
+          ),
         ],
         rows: listDaftarBarang
             .map(
@@ -99,6 +117,59 @@ class _BarangScreenState extends State<BarangScreen> {
                   DataCell(Text(daftarBarang.id.toString())),
                   DataCell(Text(daftarBarang.nama_barang)),
                   DataCell(Text(daftarBarang.jenis_barang)),
+                  DataCell(
+                    TextButton(
+                      onPressed: () {
+                        _showDaftarBarangDialog(daftarBarang: daftarBarang);
+                      },
+                      style:
+                          TextButton.styleFrom(backgroundColor: Colors.green),
+                      child: const Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.pen,
+                            color: Colors.white,
+                            size: 13,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'Update',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  DataCell(
+                    TextButton(
+                      onPressed: () {
+                        deleteDaftarBarang(daftarBarang.id!);
+                      },
+                      style: TextButton.styleFrom(backgroundColor: Colors.red),
+                      child: const Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.trash,
+                            color: Colors.white,
+                            size: 13,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )
@@ -107,11 +178,136 @@ class _BarangScreenState extends State<BarangScreen> {
     );
   }
 
-  /// Fetching DaftarBarangs.
+  /// Widget that display dialog article.
+  _showDaftarBarangDialog({DaftarBarang? daftarBarang}) {
+    var namaBarangController = TextEditingController();
+    var jenisBarangController = TextEditingController();
+
+    // Checking article.
+    if (daftarBarang != null) {
+      namaBarangController.text = daftarBarang.nama_barang;
+      jenisBarangController.text = daftarBarang.jenis_barang;
+    }
+
+    // Show dialog.
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Input Data Barang',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                  ),
+                ),
+                InputDataWidget(
+                  inputDataController: namaBarangController,
+                  namaData: 'Nama Barang',
+                  hintText: 'Input nama barang',
+                  maxLength: 255,
+                ),
+                const Divider(),
+                InputDataWidget(
+                  inputDataController: jenisBarangController,
+                  namaData: 'Delete',
+                  hintText: 'Input jenis barang',
+                  maxLength: 10,
+                ),
+                const Divider(),
+                const SizedBox(height: 50),
+                TextButton(
+                  onPressed: () {
+                    if (daftarBarang != null) {
+                      daftarBarang.nama_barang = namaBarangController.text;
+                      daftarBarang.jenis_barang = jenisBarangController.text;
+                      updateDaftarBarang(daftarBarang);
+                    } else {
+                      var newDaftarBarang = DaftarBarang(
+                        nama_barang: namaBarangController.text,
+                        jenis_barang: jenisBarangController.text,
+                      );
+                      addDaftarBarang(newDaftarBarang);
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.save_alt_outlined,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Save',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  /// Fetching aftar barangs.
   fetchDaftarBarangs() {
     try {
       daftarBarangs = client.daftarBarang.getDaftarBarangs();
       setState(() {});
+    } on Exception catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  /// Adding a new daftar barang
+  addDaftarBarang(DaftarBarang daftarBarang) async {
+    try {
+      var result = await client.daftarBarang.addDaftarBarang(daftarBarang);
+      debugPrint('Add daftar barang status : $result');
+
+      // Navigator.of(context).pop();
+      fetchDaftarBarangs();
+    } on Exception catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  /// Updating an daftar barang.
+  updateDaftarBarang(DaftarBarang daftarBarang) async {
+    try {
+      var result = await client.daftarBarang.updateDaftarBarang(daftarBarang);
+      debugPrint('Update daftar barang status : $result');
+
+      // Navigator.of(context).pop();
+      fetchDaftarBarangs();
+    } on Exception catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  /// Deleting an daftar barang.
+  deleteDaftarBarang(int id) async {
+    try {
+      var result = await client.daftarBarang.deleteDaftarBarang(id);
+      debugPrint('Delete daftar barang status : $result');
+
+      fetchDaftarBarangs();
     } on Exception catch (e) {
       debugPrint('$e');
     }
