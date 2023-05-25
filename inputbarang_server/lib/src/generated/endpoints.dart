@@ -197,11 +197,29 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'supplier',
       endpoint: endpoints['supplier']!,
       methodConnectors: {
+        'getSuppliers': _i1.MethodConnector(
+          name: 'getSuppliers',
+          params: {
+            'keyword': _i1.ParameterDescription(
+              name: 'keyword',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['supplier'] as _i5.SupplierEndpoint).getSuppliers(
+            session,
+            keyword: params['keyword'],
+          ),
+        ),
         'addSupplier': _i1.MethodConnector(
           name: 'addSupplier',
           params: {
-            'item': _i1.ParameterDescription(
-              name: 'item',
+            'supplier': _i1.ParameterDescription(
+              name: 'supplier',
               type: _i1.getType<_i9.Supplier>(),
               nullable: false,
             )
@@ -212,18 +230,44 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['supplier'] as _i5.SupplierEndpoint).addSupplier(
             session,
-            params['item'],
+            params['supplier'],
           ),
         ),
-        'loadSuppliers': _i1.MethodConnector(
-          name: 'loadSuppliers',
-          params: {},
+        'updateSupplier': _i1.MethodConnector(
+          name: 'updateSupplier',
+          params: {
+            'supplier': _i1.ParameterDescription(
+              name: 'supplier',
+              type: _i1.getType<_i9.Supplier>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['supplier'] as _i5.SupplierEndpoint)
-                  .loadSuppliers(session),
+              (endpoints['supplier'] as _i5.SupplierEndpoint).updateSupplier(
+            session,
+            params['supplier'],
+          ),
+        ),
+        'deleteSupplier': _i1.MethodConnector(
+          name: 'deleteSupplier',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['supplier'] as _i5.SupplierEndpoint).deleteSupplier(
+            session,
+            params['id'],
+          ),
         ),
       },
     );

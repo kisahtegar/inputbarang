@@ -215,7 +215,7 @@ class _BarangScreenState extends State<BarangScreen> {
                 const Divider(),
                 InputDataWidget(
                   inputDataController: jenisBarangController,
-                  namaData: 'Delete',
+                  namaData: 'Jenis Barang',
                   hintText: 'Input jenis barang',
                   maxLength: 10,
                 ),

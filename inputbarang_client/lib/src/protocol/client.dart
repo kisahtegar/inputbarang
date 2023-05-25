@@ -98,20 +98,35 @@ class _EndpointSupplier extends _i1.EndpointRef {
   @override
   String get name => 'supplier';
 
-  /// Adding Supplier to the database.
-  _i2.Future<_i5.Supplier> addSupplier(_i5.Supplier item) =>
+  /// fetch Suppliers from DB.
+  _i2.Future<List<_i5.Supplier>> getSuppliers({String? keyword}) =>
+      caller.callServerEndpoint<List<_i5.Supplier>>(
+        'supplier',
+        'getSuppliers',
+        {'keyword': keyword},
+      );
+
+  /// Add Supplier to the database.
+  _i2.Future<_i5.Supplier> addSupplier(_i5.Supplier supplier) =>
       caller.callServerEndpoint<_i5.Supplier>(
         'supplier',
         'addSupplier',
-        {'item': item},
+        {'supplier': supplier},
       );
 
-  /// Load Suppliers.
-  _i2.Future<List<_i5.Supplier>> loadSuppliers() =>
-      caller.callServerEndpoint<List<_i5.Supplier>>(
+  /// Update Supplier to the database.
+  _i2.Future<_i5.Supplier> updateSupplier(_i5.Supplier supplier) =>
+      caller.callServerEndpoint<_i5.Supplier>(
         'supplier',
-        'loadSuppliers',
-        {},
+        'updateSupplier',
+        {'supplier': supplier},
+      );
+
+  /// Delete Supplier from database.
+  _i2.Future<bool> deleteSupplier(int id) => caller.callServerEndpoint<bool>(
+        'supplier',
+        'deleteSupplier',
+        {'id': id},
       );
 }
 
