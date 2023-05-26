@@ -16,7 +16,7 @@ class DaftarPembelianScreen extends StatelessWidget {
             PageBannerWidget(
               title: 'Daftar Pembelian',
               icon: FontAwesomeIcons.cartShopping,
-              iconColor: Color.fromARGB(255, 209, 162, 33),
+              iconColor: Color.fromARGB(255, 159, 33, 209),
             ),
           ],
         ),

@@ -100,14 +100,9 @@ class _BarangScreenState extends State<BarangScreen> {
             tooltip: "Jenis Barang",
           ),
           DataColumn(
-            label: Text('Update'),
+            label: Text('Aksi'),
             numeric: false,
-            tooltip: "Update",
-          ),
-          DataColumn(
-            label: Text('Delete'),
-            numeric: false,
-            tooltip: "Delete",
+            tooltip: "Aksi",
           ),
         ],
         rows: listDaftarBarang
@@ -118,56 +113,60 @@ class _BarangScreenState extends State<BarangScreen> {
                   DataCell(Text(daftarBarang.nama_barang)),
                   DataCell(Text(daftarBarang.jenis_barang)),
                   DataCell(
-                    TextButton(
-                      onPressed: () {
-                        _showDaftarBarangDialog(daftarBarang: daftarBarang);
-                      },
-                      style:
-                          TextButton.styleFrom(backgroundColor: Colors.green),
-                      child: const Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.pen,
-                            color: Colors.white,
-                            size: 13,
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            _showDaftarBarangDialog(daftarBarang: daftarBarang);
+                          },
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.green),
+                          child: const Row(
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.pen,
+                                color: Colors.white,
+                                size: 13,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Update',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 5),
-                          Text(
-                            'Update',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
+                        ),
+                        const SizedBox(width: 10),
+                        TextButton(
+                          onPressed: () {
+                            deleteDaftarBarang(daftarBarang.id!);
+                          },
+                          style:
+                              TextButton.styleFrom(backgroundColor: Colors.red),
+                          child: const Row(
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.trash,
+                                color: Colors.white,
+                                size: 13,
+                              ),
+                              SizedBox(width: 5),
+                              Text(
+                                'Delete',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  DataCell(
-                    TextButton(
-                      onPressed: () {
-                        deleteDaftarBarang(daftarBarang.id!);
-                      },
-                      style: TextButton.styleFrom(backgroundColor: Colors.red),
-                      child: const Row(
-                        children: [
-                          FaIcon(
-                            FontAwesomeIcons.trash,
-                            color: Colors.white,
-                            size: 13,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            'Delete',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

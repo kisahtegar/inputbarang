@@ -1,12 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:inputbarang_flutter/screens/daftar_pembelian/daftar_pembelian_screen.dart';
-import 'package:inputbarang_flutter/screens/input/input_screen.dart';
-import 'package:inputbarang_flutter/screens/transaksi/transaksi_screen.dart';
+import 'package:intl/intl.dart';
 
 import '../const/constants.dart';
 import 'barang/barang_screen.dart';
+import 'daftar_pembelian/daftar_pembelian_screen.dart';
+import 'dashboard/dashboard_screen.dart';
 import 'supplier/supplier_screen.dart';
+import 'transaksi/transaksi_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -21,15 +24,21 @@ class _MainScreenState extends State<MainScreen> {
   // ignore: unused_field
   int _currentIndex = 0;
   late PageController pageController;
+  String? _timeString;
+  Timer? timer;
 
   @override
   void initState() {
     pageController = PageController();
+    _timeString = _formatDateTime(DateTime.now());
+    Timer.periodic(const Duration(seconds: 1), (Timer t) => _getTime());
     super.initState();
   }
 
   @override
   void dispose() {
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => _getTime());
+    timer?.cancel();
     pageController.dispose();
     super.dispose();
   }
@@ -44,30 +53,39 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  void _getTime() {
+    final DateTime now = DateTime.now();
+    final String formattedDateTime = _formatDateTime(now);
+    setState(() {
+      _timeString = formattedDateTime;
+    });
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    return DateFormat('EEEE, dd MMM yyyy\n             hh:mm:ss a')
+        .format(dateTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ColorConst.bgColor,
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FaIcon(
-              FontAwesomeIcons.bolt,
-              color: Colors.yellow,
-              size: 20,
-            ),
-            SizedBox(width: 10),
-            Text(
-              'Stock Items',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: Center(
+              child: Text(
+                _timeString.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
         leading: Builder(
           builder: (context) => IconButton(
             onPressed: () {
@@ -92,29 +110,35 @@ class _MainScreenState extends State<MainScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FaIcon(
-                    FontAwesomeIcons.bolt,
-                    color: Colors.yellow,
-                    size: 20,
+                  Image(
+                    image: AssetImage('assets/images/logo3.png'),
+                    width: 100,
+                    height: 100,
                   ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Stock Items',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                  SizedBox(width: 3),
+                  FaIcon(
+                    FontAwesomeIcons.parachuteBox,
+                    color: Color.fromARGB(255, 255, 174, 0),
+                    size: 45,
                   ),
                 ],
               ),
             ),
             ListTile(
-              leading: const FaIcon(FontAwesomeIcons.penClip),
-              title: const Text('Input'),
+              leading: const FaIcon(FontAwesomeIcons.gauge),
+              title: const Text('Dashboard'),
               onTap: () {
                 Navigator.pop(context);
                 navigationTapped(0);
+              },
+            ),
+            const Divider(),
+            ListTile(
+              leading: const FaIcon(FontAwesomeIcons.cartShopping),
+              title: const Text('Pembelian'),
+              onTap: () {
+                Navigator.pop(context);
+                navigationTapped(1);
               },
             ),
             const Divider(),
@@ -123,7 +147,7 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text('Barang'),
               onTap: () {
                 Navigator.pop(context);
-                navigationTapped(1);
+                navigationTapped(2);
               },
             ),
             const Divider(),
@@ -132,22 +156,13 @@ class _MainScreenState extends State<MainScreen> {
               title: const Text('Supllier'),
               onTap: () {
                 Navigator.pop(context);
-                navigationTapped(2);
+                navigationTapped(3);
               },
             ),
             const Divider(),
             ListTile(
               leading: const FaIcon(FontAwesomeIcons.moneyBillTransfer),
               title: const Text('Transaksi'),
-              onTap: () {
-                Navigator.pop(context);
-                navigationTapped(3);
-              },
-            ),
-            const Divider(),
-            ListTile(
-              leading: const FaIcon(FontAwesomeIcons.cartShopping),
-              title: const Text('Daftar Pembelian'),
               onTap: () {
                 Navigator.pop(context);
                 navigationTapped(4);
@@ -161,11 +176,11 @@ class _MainScreenState extends State<MainScreen> {
         controller: pageController,
         onPageChanged: onPageChanged,
         children: const [
-          InputScreen(),
+          DashboardScreen(),
+          DaftarPembelianScreen(),
           BarangScreen(),
           SupplierScreen(),
           TransaksiScreen(),
-          DaftarPembelianScreen(),
         ],
       ),
     );
