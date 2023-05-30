@@ -199,6 +199,7 @@ class _SupplierScreenState extends State<SupplierScreen> {
     // Show dialog.
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return Dialog(
           child: Padding(
@@ -206,9 +207,11 @@ class _SupplierScreenState extends State<SupplierScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Input Data Supplier',
-                  style: TextStyle(
+                Text(
+                  supplier != null
+                      ? 'Update Data Supplier'
+                      : 'Input Data Supplier',
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
@@ -235,43 +238,82 @@ class _SupplierScreenState extends State<SupplierScreen> {
                 ),
                 const Divider(),
                 const SizedBox(height: 50),
-                TextButton(
-                  onPressed: () {
-                    if (supplier != null) {
-                      supplier.nama_supplier = namaSupplierController.text;
-                      supplier.alamat_supplier = alamatSupplierController.text;
-                      supplier.telepon_supplier =
-                          teleponSupplierController.text;
-                      updateSupplier(supplier);
-                      Navigator.of(context).pop();
-                    } else {
-                      var newSupplier = Supplier(
-                        nama_supplier: namaSupplierController.text,
-                        alamat_supplier: alamatSupplierController.text,
-                        telepon_supplier: teleponSupplierController.text,
-                      );
-                      addSupplier(newSupplier);
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  style: TextButton.styleFrom(backgroundColor: Colors.green),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.save_alt_outlined,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Save',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 15,
+                Row(
+                  children: [
+                    // Button: Save button.
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          if (supplier != null) {
+                            supplier.nama_supplier =
+                                namaSupplierController.text;
+                            supplier.alamat_supplier =
+                                alamatSupplierController.text;
+                            supplier.telepon_supplier =
+                                teleponSupplierController.text;
+                            updateSupplier(supplier);
+                            Navigator.of(context).pop();
+                          } else {
+                            var newSupplier = Supplier(
+                              nama_supplier: namaSupplierController.text,
+                              alamat_supplier: alamatSupplierController.text,
+                              telepon_supplier: teleponSupplierController.text,
+                            );
+                            addSupplier(newSupplier);
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.green),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.save_alt_outlined,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Save',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 10),
+
+                    // Button: Cancel button.
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.red),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.exit_to_app,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Exit',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

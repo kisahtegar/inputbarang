@@ -191,6 +191,7 @@ class _BarangScreenState extends State<BarangScreen> {
     // Show dialog.
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
         return Dialog(
           child: Padding(
@@ -198,9 +199,11 @@ class _BarangScreenState extends State<BarangScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Input Data Barang',
-                  style: TextStyle(
+                Text(
+                  daftarBarang != null
+                      ? 'Update Data Barang'
+                      : 'Input Data Barang',
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
@@ -220,41 +223,80 @@ class _BarangScreenState extends State<BarangScreen> {
                 ),
                 const Divider(),
                 const SizedBox(height: 50),
-                TextButton(
-                  onPressed: () {
-                    if (daftarBarang != null) {
-                      daftarBarang.nama_barang = namaBarangController.text;
-                      daftarBarang.jenis_barang = jenisBarangController.text;
-                      updateDaftarBarang(daftarBarang);
-                    } else {
-                      var newDaftarBarang = DaftarBarang(
-                        nama_barang: namaBarangController.text,
-                        jenis_barang: jenisBarangController.text,
-                      );
-                      addDaftarBarang(newDaftarBarang);
-                      Navigator.of(context).pop();
-                    }
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.save_alt_outlined,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        'Save',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 15,
+                Row(
+                  children: [
+                    // Button: Save button.
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          if (daftarBarang != null) {
+                            daftarBarang.nama_barang =
+                                namaBarangController.text;
+                            daftarBarang.jenis_barang =
+                                jenisBarangController.text;
+                            updateDaftarBarang(daftarBarang);
+                            Navigator.of(context).pop();
+                          } else {
+                            var newDaftarBarang = DaftarBarang(
+                              nama_barang: namaBarangController.text,
+                              jenis_barang: jenisBarangController.text,
+                            );
+                            addDaftarBarang(newDaftarBarang);
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.green,
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.save_alt_outlined,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Save',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(width: 10),
+
+                    // Button: Cancel button.
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style:
+                            TextButton.styleFrom(backgroundColor: Colors.red),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.exit_to_app,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              'Exit',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
