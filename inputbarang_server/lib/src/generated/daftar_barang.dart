@@ -11,6 +11,7 @@ import 'package:serverpod/serverpod.dart' as _i1;
 class DaftarBarang extends _i1.TableRow {
   DaftarBarang({
     int? id,
+    required this.kode_barang,
     required this.nama_barang,
     required this.jenis_barang,
   }) : super(id);
@@ -21,6 +22,8 @@ class DaftarBarang extends _i1.TableRow {
   ) {
     return DaftarBarang(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
+      kode_barang: serializationManager
+          .deserialize<String>(jsonSerialization['kode_barang']),
       nama_barang: serializationManager
           .deserialize<String>(jsonSerialization['nama_barang']),
       jenis_barang: serializationManager
@@ -29,6 +32,8 @@ class DaftarBarang extends _i1.TableRow {
   }
 
   static final t = DaftarBarangTable();
+
+  String kode_barang;
 
   String nama_barang;
 
@@ -40,6 +45,7 @@ class DaftarBarang extends _i1.TableRow {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'kode_barang': kode_barang,
       'nama_barang': nama_barang,
       'jenis_barang': jenis_barang,
     };
@@ -49,6 +55,7 @@ class DaftarBarang extends _i1.TableRow {
   Map<String, dynamic> toJsonForDatabase() {
     return {
       'id': id,
+      'kode_barang': kode_barang,
       'nama_barang': nama_barang,
       'jenis_barang': jenis_barang,
     };
@@ -58,6 +65,7 @@ class DaftarBarang extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       'id': id,
+      'kode_barang': kode_barang,
       'nama_barang': nama_barang,
       'jenis_barang': jenis_barang,
     };
@@ -71,6 +79,9 @@ class DaftarBarang extends _i1.TableRow {
     switch (columnName) {
       case 'id':
         id = value;
+        return;
+      case 'kode_barang':
+        kode_barang = value;
         return;
       case 'nama_barang':
         nama_barang = value;
@@ -203,6 +214,8 @@ class DaftarBarangTable extends _i1.Table {
   /// the id will be null.
   final id = _i1.ColumnInt('id');
 
+  final kode_barang = _i1.ColumnString('kode_barang');
+
   final nama_barang = _i1.ColumnString('nama_barang');
 
   final jenis_barang = _i1.ColumnString('jenis_barang');
@@ -210,6 +223,7 @@ class DaftarBarangTable extends _i1.Table {
   @override
   List<_i1.Column> get columns => [
         id,
+        kode_barang,
         nama_barang,
         jenis_barang,
       ];

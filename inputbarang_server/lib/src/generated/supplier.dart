@@ -11,6 +11,7 @@ import 'package:serverpod/serverpod.dart' as _i1;
 class Supplier extends _i1.TableRow {
   Supplier({
     int? id,
+    required this.kode_supplier,
     required this.nama_supplier,
     required this.alamat_supplier,
     required this.telepon_supplier,
@@ -22,6 +23,8 @@ class Supplier extends _i1.TableRow {
   ) {
     return Supplier(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
+      kode_supplier: serializationManager
+          .deserialize<String>(jsonSerialization['kode_supplier']),
       nama_supplier: serializationManager
           .deserialize<String>(jsonSerialization['nama_supplier']),
       alamat_supplier: serializationManager
@@ -32,6 +35,8 @@ class Supplier extends _i1.TableRow {
   }
 
   static final t = SupplierTable();
+
+  String kode_supplier;
 
   String nama_supplier;
 
@@ -45,6 +50,7 @@ class Supplier extends _i1.TableRow {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'kode_supplier': kode_supplier,
       'nama_supplier': nama_supplier,
       'alamat_supplier': alamat_supplier,
       'telepon_supplier': telepon_supplier,
@@ -55,6 +61,7 @@ class Supplier extends _i1.TableRow {
   Map<String, dynamic> toJsonForDatabase() {
     return {
       'id': id,
+      'kode_supplier': kode_supplier,
       'nama_supplier': nama_supplier,
       'alamat_supplier': alamat_supplier,
       'telepon_supplier': telepon_supplier,
@@ -65,6 +72,7 @@ class Supplier extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       'id': id,
+      'kode_supplier': kode_supplier,
       'nama_supplier': nama_supplier,
       'alamat_supplier': alamat_supplier,
       'telepon_supplier': telepon_supplier,
@@ -79,6 +87,9 @@ class Supplier extends _i1.TableRow {
     switch (columnName) {
       case 'id':
         id = value;
+        return;
+      case 'kode_supplier':
+        kode_supplier = value;
         return;
       case 'nama_supplier':
         nama_supplier = value;
@@ -213,6 +224,8 @@ class SupplierTable extends _i1.Table {
   /// the id will be null.
   final id = _i1.ColumnInt('id');
 
+  final kode_supplier = _i1.ColumnString('kode_supplier');
+
   final nama_supplier = _i1.ColumnString('nama_supplier');
 
   final alamat_supplier = _i1.ColumnString('alamat_supplier');
@@ -222,6 +235,7 @@ class SupplierTable extends _i1.Table {
   @override
   List<_i1.Column> get columns => [
         id,
+        kode_supplier,
         nama_supplier,
         alamat_supplier,
         telepon_supplier,

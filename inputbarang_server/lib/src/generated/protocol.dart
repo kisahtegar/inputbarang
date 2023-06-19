@@ -46,6 +46,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'daftar_barang_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
+          name: 'kode_barang',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
           name: 'nama_barang',
           columnType: _i2.ColumnType.text,
           isNullable: false,
@@ -98,6 +104,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'kode_pembelian',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
         ),
         _i2.ColumnDefinition(
           name: 'jumlah',
@@ -163,6 +175,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'supplier_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
+          name: 'kode_supplier',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
           name: 'nama_supplier',
           columnType: _i2.ColumnType.text,
           isNullable: false,
@@ -215,6 +233,12 @@ class Protocol extends _i1.SerializationManagerServer {
           columnType: _i2.ColumnType.integer,
           isNullable: false,
           dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'kode_faktur',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
         ),
         _i2.ColumnDefinition(
           name: 'tanggal_transaksi',

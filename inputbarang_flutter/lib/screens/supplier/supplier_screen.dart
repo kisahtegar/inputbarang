@@ -85,9 +85,14 @@ class _SupplierScreenState extends State<SupplierScreen> {
         showCheckboxColumn: false,
         columns: const [
           DataColumn(
-            label: Text('ID'),
+            label: Text('No.'),
             numeric: false,
-            tooltip: "ID",
+            tooltip: "No.",
+          ),
+          DataColumn(
+            label: Text('Kode Supplier'),
+            numeric: false,
+            tooltip: "Kode Supplier",
           ),
           DataColumn(
             label: Text('Nama Supplier'),
@@ -110,87 +115,90 @@ class _SupplierScreenState extends State<SupplierScreen> {
             tooltip: "Aksi",
           ),
         ],
-        rows: listSupplier
-            .map(
-              (supplier) => DataRow(
-                cells: [
-                  DataCell(Text(supplier.id.toString())),
-                  DataCell(Text(supplier.nama_supplier)),
-                  DataCell(Text(supplier.alamat_supplier)),
-                  DataCell(Text(supplier.telepon_supplier)),
-                  DataCell(
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            _showSupplierDialog(supplier: supplier);
-                          },
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.green),
-                          child: const Row(
-                            children: [
-                              FaIcon(
-                                FontAwesomeIcons.pen,
-                                color: Colors.white,
-                                size: 13,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Update',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+        rows: listSupplier.map((supplier) {
+          // get index
+          int index = listSupplier.indexOf(supplier);
+
+          return DataRow(
+            cells: [
+              DataCell(Text('${index + 1}')),
+              DataCell(Text(supplier.kode_supplier)),
+              DataCell(Text(supplier.nama_supplier)),
+              DataCell(Text(supplier.alamat_supplier)),
+              DataCell(Text(supplier.telepon_supplier)),
+              DataCell(
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _showSupplierDialog(supplier: supplier);
+                      },
+                      style:
+                          TextButton.styleFrom(backgroundColor: Colors.green),
+                      child: const Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.pen,
+                            color: Colors.white,
+                            size: 13,
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        TextButton(
-                          onPressed: () {
-                            deleteSupplier(supplier.id!);
-                          },
-                          style:
-                              TextButton.styleFrom(backgroundColor: Colors.red),
-                          child: const Row(
-                            children: [
-                              FaIcon(
-                                FontAwesomeIcons.trash,
-                                color: Colors.white,
-                                size: 13,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          SizedBox(width: 5),
+                          Text(
+                            'Update',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    TextButton(
+                      onPressed: () {
+                        deleteSupplier(supplier.id!);
+                      },
+                      style: TextButton.styleFrom(backgroundColor: Colors.red),
+                      child: const Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.trash,
+                            color: Colors.white,
+                            size: 13,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
-            .toList(),
+            ],
+          );
+        }).toList(),
       ),
     );
   }
 
   /// Widget that display dialog article.
   _showSupplierDialog({Supplier? supplier}) {
+    var kodeSupplierController = TextEditingController();
     var namaSupplierController = TextEditingController();
     var alamatSupplierController = TextEditingController();
     var teleponSupplierController = TextEditingController();
 
     // Checking article.
     if (supplier != null) {
+      kodeSupplierController.text = supplier.kode_supplier;
       namaSupplierController.text = supplier.nama_supplier;
       alamatSupplierController.text = supplier.alamat_supplier;
       teleponSupplierController.text = supplier.telepon_supplier;
@@ -215,6 +223,12 @@ class _SupplierScreenState extends State<SupplierScreen> {
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
+                ),
+                InputDataWidget(
+                  inputDataController: kodeSupplierController,
+                  namaData: 'Kode Supplier',
+                  hintText: 'Input kode supplier',
+                  maxLength: 6,
                 ),
                 InputDataWidget(
                   inputDataController: namaSupplierController,
@@ -255,6 +269,7 @@ class _SupplierScreenState extends State<SupplierScreen> {
                             Navigator.of(context).pop();
                           } else {
                             var newSupplier = Supplier(
+                              kode_supplier: kodeSupplierController.text,
                               nama_supplier: namaSupplierController.text,
                               alamat_supplier: alamatSupplierController.text,
                               telepon_supplier: teleponSupplierController.text,

@@ -85,9 +85,14 @@ class _BarangScreenState extends State<BarangScreen> {
         showCheckboxColumn: false,
         columns: const [
           DataColumn(
-            label: Text('ID'),
+            label: Text('No.'),
             numeric: false,
-            tooltip: "ID",
+            tooltip: "No.",
+          ),
+          DataColumn(
+            label: Text('Kode Barang'),
+            numeric: false,
+            tooltip: "Kode Barang",
           ),
           DataColumn(
             label: Text('Nama Barang'),
@@ -105,85 +110,88 @@ class _BarangScreenState extends State<BarangScreen> {
             tooltip: "Aksi",
           ),
         ],
-        rows: listDaftarBarang
-            .map(
-              (daftarBarang) => DataRow(
-                cells: [
-                  DataCell(Text(daftarBarang.id.toString())),
-                  DataCell(Text(daftarBarang.nama_barang)),
-                  DataCell(Text(daftarBarang.jenis_barang)),
-                  DataCell(
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            _showDaftarBarangDialog(daftarBarang: daftarBarang);
-                          },
-                          style: TextButton.styleFrom(
-                              backgroundColor: Colors.green),
-                          child: const Row(
-                            children: [
-                              FaIcon(
-                                FontAwesomeIcons.pen,
-                                color: Colors.white,
-                                size: 13,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Update',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+        rows: listDaftarBarang.map((daftarBarang) {
+          // get index
+          int index = listDaftarBarang.indexOf(daftarBarang);
+
+          return DataRow(
+            cells: [
+              DataCell(Text('${index + 1}')),
+              DataCell(Text(daftarBarang.kode_barang)),
+              DataCell(Text(daftarBarang.nama_barang)),
+              DataCell(Text(daftarBarang.jenis_barang)),
+              DataCell(
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        _showDaftarBarangDialog(daftarBarang: daftarBarang);
+                      },
+                      style:
+                          TextButton.styleFrom(backgroundColor: Colors.green),
+                      child: const Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.pen,
+                            color: Colors.white,
+                            size: 13,
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        TextButton(
-                          onPressed: () {
-                            deleteDaftarBarang(daftarBarang.id!);
-                          },
-                          style:
-                              TextButton.styleFrom(backgroundColor: Colors.red),
-                          child: const Row(
-                            children: [
-                              FaIcon(
-                                FontAwesomeIcons.trash,
-                                color: Colors.white,
-                                size: 13,
-                              ),
-                              SizedBox(width: 5),
-                              Text(
-                                'Delete',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          SizedBox(width: 5),
+                          Text(
+                            'Update',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    TextButton(
+                      onPressed: () {
+                        deleteDaftarBarang(daftarBarang.id!);
+                      },
+                      style: TextButton.styleFrom(backgroundColor: Colors.red),
+                      child: const Row(
+                        children: [
+                          FaIcon(
+                            FontAwesomeIcons.trash,
+                            color: Colors.white,
+                            size: 13,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
-            .toList(),
+            ],
+          );
+        }).toList(),
       ),
     );
   }
 
   /// Widget that display dialog article.
   _showDaftarBarangDialog({DaftarBarang? daftarBarang}) {
+    var kodeBarangController = TextEditingController();
     var namaBarangController = TextEditingController();
     var jenisBarangController = TextEditingController();
 
     // Checking article.
     if (daftarBarang != null) {
+      kodeBarangController.text = daftarBarang.kode_barang;
       namaBarangController.text = daftarBarang.nama_barang;
       jenisBarangController.text = daftarBarang.jenis_barang;
     }
@@ -207,6 +215,12 @@ class _BarangScreenState extends State<BarangScreen> {
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
                   ),
+                ),
+                InputDataWidget(
+                  inputDataController: kodeBarangController,
+                  namaData: 'Kode Barang',
+                  hintText: 'Input kode barang',
+                  maxLength: 6,
                 ),
                 InputDataWidget(
                   inputDataController: namaBarangController,
@@ -238,6 +252,7 @@ class _BarangScreenState extends State<BarangScreen> {
                             Navigator.of(context).pop();
                           } else {
                             var newDaftarBarang = DaftarBarang(
+                              kode_barang: kodeBarangController.text,
                               nama_barang: namaBarangController.text,
                               jenis_barang: jenisBarangController.text,
                             );

@@ -4,13 +4,20 @@
 
 CREATE TABLE "daftar_barang" (
   "id" serial,
-  "kode_barang" text NOT NULL,
-  "nama_barang" text NOT NULL,
-  "jenis_barang" text NOT NULL
+  "kode_barang" char(6) UNIQUE NOT NULL,
+  "nama_barang" varchar(255) NOT NULL,
+  "jenis_barang" varchar(10) NOT NULL
 );
+
 
 ALTER TABLE ONLY "daftar_barang"
   ADD CONSTRAINT daftar_barang_pkey PRIMARY KEY (id);
+
+--- OPTIONAL
+CREATE TYPE BARANG_CATEGORY AS ENUM ('Kemeja', 'Kaos', 'Sweater', 'Baju Koko', 'Seragam');
+ALTER TABLE ONLY "daftar_barang"
+    ADD COLUMN jenis_barang BARANG_CATEGORY;
+
 
 
 --
@@ -19,14 +26,15 @@ ALTER TABLE ONLY "daftar_barang"
 
 CREATE TABLE "supplier" (
   "id" serial,
-  "kode_supplier" text NOT NULL,
-  "nama_supplier" text NOT NULL,
-  "alamat_supplier" text NOT NULL,
-  "telepon_supplier" text NOT NULL
+  "kode_supplier" char(6) UNIQUE NOT NULL,
+  "nama_supplier" varchar(255) NOT NULL,
+  "alamat_supplier" varchar(100) NOT NULL,
+  "telepon_supplier" varchar(15) NOT NULL
 );
 
 ALTER TABLE ONLY "supplier"
   ADD CONSTRAINT supplier_pkey PRIMARY KEY (id);
+
 
 
 --
@@ -36,7 +44,7 @@ ALTER TABLE ONLY "supplier"
 CREATE TABLE "transaksi" (
   "id" serial,
   "supplierId" integer NOT NULL,
-  "kode_faktur" text NOT NULL,
+  "kode_faktur" char(6) UNIQUE NOT NULL,
   "tanggal_transaksi" timestamp without time zone NOT NULL
 );
 
@@ -57,7 +65,7 @@ CREATE TABLE "daftar_pembelian" (
   "id" serial,
   "transaksiId" integer NOT NULL,
   "daftarBarangId" integer NOT NULL,
-  "kode_pembelian" text NOT NULL,
+  "kode_pembelian" char(6) UNIQUE NOT NULL,
   "jumlah" integer NOT NULL,
   "harga_barang" integer NOT NULL
 );

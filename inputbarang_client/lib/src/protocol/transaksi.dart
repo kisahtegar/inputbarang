@@ -12,6 +12,7 @@ class Transaksi extends _i1.SerializableEntity {
   Transaksi({
     this.id,
     required this.supplierId,
+    required this.kode_faktur,
     required this.tanggal_transaksi,
   });
 
@@ -23,6 +24,8 @@ class Transaksi extends _i1.SerializableEntity {
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       supplierId: serializationManager
           .deserialize<int>(jsonSerialization['supplierId']),
+      kode_faktur: serializationManager
+          .deserialize<String>(jsonSerialization['kode_faktur']),
       tanggal_transaksi: serializationManager
           .deserialize<DateTime>(jsonSerialization['tanggal_transaksi']),
     );
@@ -35,6 +38,8 @@ class Transaksi extends _i1.SerializableEntity {
 
   int supplierId;
 
+  String kode_faktur;
+
   DateTime tanggal_transaksi;
 
   @override
@@ -42,6 +47,7 @@ class Transaksi extends _i1.SerializableEntity {
     return {
       'id': id,
       'supplierId': supplierId,
+      'kode_faktur': kode_faktur,
       'tanggal_transaksi': tanggal_transaksi,
     };
   }

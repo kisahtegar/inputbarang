@@ -10,4 +10,5 @@ table: transaksi
 # for null safety. Eg. `List<int>?` or `List<MyOtherClass?>`.
 fields:
   supplierId: int, parent=supplier
+  kode_faktur: String
   tanggal_transaksi: DateTime

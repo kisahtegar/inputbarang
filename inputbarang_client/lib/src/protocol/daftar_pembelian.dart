@@ -13,6 +13,7 @@ class DaftarPembelian extends _i1.SerializableEntity {
     this.id,
     required this.transaksiId,
     required this.daftarBarangId,
+    required this.kode_pembelian,
     required this.jumlah,
     required this.harga_barang,
   });
@@ -27,6 +28,8 @@ class DaftarPembelian extends _i1.SerializableEntity {
           .deserialize<int>(jsonSerialization['transaksiId']),
       daftarBarangId: serializationManager
           .deserialize<int>(jsonSerialization['daftarBarangId']),
+      kode_pembelian: serializationManager
+          .deserialize<String>(jsonSerialization['kode_pembelian']),
       jumlah:
           serializationManager.deserialize<int>(jsonSerialization['jumlah']),
       harga_barang: serializationManager
@@ -43,6 +46,8 @@ class DaftarPembelian extends _i1.SerializableEntity {
 
   int daftarBarangId;
 
+  String kode_pembelian;
+
   int jumlah;
 
   int harga_barang;
@@ -53,6 +58,7 @@ class DaftarPembelian extends _i1.SerializableEntity {
       'id': id,
       'transaksiId': transaksiId,
       'daftarBarangId': daftarBarangId,
+      'kode_pembelian': kode_pembelian,
       'jumlah': jumlah,
       'harga_barang': harga_barang,
     };

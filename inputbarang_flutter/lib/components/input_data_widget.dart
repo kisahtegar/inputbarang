@@ -32,7 +32,7 @@ class InputDataWidget extends StatelessWidget {
         Expanded(
           child: TextField(
             controller: inputDataController,
-            maxLength: 255,
+            maxLength: maxLength,
             decoration: InputDecoration(
               hintText: hintText,
               counterStyle: const TextStyle(

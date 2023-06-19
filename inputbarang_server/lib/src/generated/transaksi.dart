@@ -12,6 +12,7 @@ class Transaksi extends _i1.TableRow {
   Transaksi({
     int? id,
     required this.supplierId,
+    required this.kode_faktur,
     required this.tanggal_transaksi,
   }) : super(id);
 
@@ -23,6 +24,8 @@ class Transaksi extends _i1.TableRow {
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
       supplierId: serializationManager
           .deserialize<int>(jsonSerialization['supplierId']),
+      kode_faktur: serializationManager
+          .deserialize<String>(jsonSerialization['kode_faktur']),
       tanggal_transaksi: serializationManager
           .deserialize<DateTime>(jsonSerialization['tanggal_transaksi']),
     );
@@ -31,6 +34,8 @@ class Transaksi extends _i1.TableRow {
   static final t = TransaksiTable();
 
   int supplierId;
+
+  String kode_faktur;
 
   DateTime tanggal_transaksi;
 
@@ -41,6 +46,7 @@ class Transaksi extends _i1.TableRow {
     return {
       'id': id,
       'supplierId': supplierId,
+      'kode_faktur': kode_faktur,
       'tanggal_transaksi': tanggal_transaksi,
     };
   }
@@ -50,6 +56,7 @@ class Transaksi extends _i1.TableRow {
     return {
       'id': id,
       'supplierId': supplierId,
+      'kode_faktur': kode_faktur,
       'tanggal_transaksi': tanggal_transaksi,
     };
   }
@@ -59,6 +66,7 @@ class Transaksi extends _i1.TableRow {
     return {
       'id': id,
       'supplierId': supplierId,
+      'kode_faktur': kode_faktur,
       'tanggal_transaksi': tanggal_transaksi,
     };
   }
@@ -74,6 +82,9 @@ class Transaksi extends _i1.TableRow {
         return;
       case 'supplierId':
         supplierId = value;
+        return;
+      case 'kode_faktur':
+        kode_faktur = value;
         return;
       case 'tanggal_transaksi':
         tanggal_transaksi = value;
@@ -204,12 +215,15 @@ class TransaksiTable extends _i1.Table {
 
   final supplierId = _i1.ColumnInt('supplierId');
 
+  final kode_faktur = _i1.ColumnString('kode_faktur');
+
   final tanggal_transaksi = _i1.ColumnDateTime('tanggal_transaksi');
 
   @override
   List<_i1.Column> get columns => [
         id,
         supplierId,
+        kode_faktur,
         tanggal_transaksi,
       ];
 }

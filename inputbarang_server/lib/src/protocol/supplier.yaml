@@ -9,6 +9,7 @@ table: supplier
 # generated classes. You can also add lists of objects and types have support
 # for null safety. Eg. `List<int>?` or `List<MyOtherClass?>`.
 fields:
+  kode_supplier: String
   nama_supplier: String
   alamat_supplier: String
   telepon_supplier: String
