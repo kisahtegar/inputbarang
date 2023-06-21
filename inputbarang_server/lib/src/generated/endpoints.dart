@@ -113,6 +113,25 @@ class Endpoints extends _i1.EndpointDispatch {
             params['daftarBarang'],
           ),
         ),
+        'findDaftarBarang': _i1.MethodConnector(
+          name: 'findDaftarBarang',
+          params: {
+            'daftarBarangId': _i1.ParameterDescription(
+              name: 'daftarBarangId',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['daftarBarang'] as _i2.DaftarBarangEndpoint)
+                  .findDaftarBarang(
+            session,
+            params['daftarBarangId'],
+          ),
+        ),
         'deleteDaftarBarang': _i1.MethodConnector(
           name: 'deleteDaftarBarang',
           params: {
@@ -138,11 +157,30 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'daftarPembelian',
       endpoint: endpoints['daftarPembelian']!,
       methodConnectors: {
+        'getDaftarPembelians': _i1.MethodConnector(
+          name: 'getDaftarPembelians',
+          params: {
+            'keyword': _i1.ParameterDescription(
+              name: 'keyword',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['daftarPembelian'] as _i3.DaftarPembelianEndpoint)
+                  .getDaftarPembelians(
+            session,
+            keyword: params['keyword'],
+          ),
+        ),
         'addDaftarPembelian': _i1.MethodConnector(
           name: 'addDaftarPembelian',
           params: {
-            'item': _i1.ParameterDescription(
-              name: 'item',
+            'daftarPembelian': _i1.ParameterDescription(
+              name: 'daftarPembelian',
               type: _i1.getType<_i8.DaftarPembelian>(),
               nullable: false,
             )
@@ -154,18 +192,46 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['daftarPembelian'] as _i3.DaftarPembelianEndpoint)
                   .addDaftarPembelian(
             session,
-            params['item'],
+            params['daftarPembelian'],
           ),
         ),
-        'loadDaftarPembelians': _i1.MethodConnector(
-          name: 'loadDaftarPembelians',
-          params: {},
+        'updateDaftarPembelian': _i1.MethodConnector(
+          name: 'updateDaftarPembelian',
+          params: {
+            'daftarPembelian': _i1.ParameterDescription(
+              name: 'daftarPembelian',
+              type: _i1.getType<_i8.DaftarPembelian>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
               (endpoints['daftarPembelian'] as _i3.DaftarPembelianEndpoint)
-                  .loadDaftarPembelians(session),
+                  .updateDaftarPembelian(
+            session,
+            params['daftarPembelian'],
+          ),
+        ),
+        'deleteDaftarPembelian': _i1.MethodConnector(
+          name: 'deleteDaftarPembelian',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['daftarPembelian'] as _i3.DaftarPembelianEndpoint)
+                  .deleteDaftarPembelian(
+            session,
+            params['id'],
+          ),
         ),
       },
     );
@@ -275,11 +341,30 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'transaksi',
       endpoint: endpoints['transaksi']!,
       methodConnectors: {
+        'getDaftarTransaksis': _i1.MethodConnector(
+          name: 'getDaftarTransaksis',
+          params: {
+            'keyword': _i1.ParameterDescription(
+              name: 'keyword',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['transaksi'] as _i6.TransaksiEndpoint)
+                  .getDaftarTransaksis(
+            session,
+            keyword: params['keyword'],
+          ),
+        ),
         'addTransaksi': _i1.MethodConnector(
           name: 'addTransaksi',
           params: {
-            'item': _i1.ParameterDescription(
-              name: 'item',
+            'daftarTransaksi': _i1.ParameterDescription(
+              name: 'daftarTransaksi',
               type: _i1.getType<_i10.Transaksi>(),
               nullable: false,
             )
@@ -290,18 +375,26 @@ class Endpoints extends _i1.EndpointDispatch {
           ) async =>
               (endpoints['transaksi'] as _i6.TransaksiEndpoint).addTransaksi(
             session,
-            params['item'],
+            params['daftarTransaksi'],
           ),
         ),
-        'loadTransaksis': _i1.MethodConnector(
-          name: 'loadTransaksis',
-          params: {},
+        'deleteTransaksi': _i1.MethodConnector(
+          name: 'deleteTransaksi',
+          params: {
+            'id': _i1.ParameterDescription(
+              name: 'id',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['transaksi'] as _i6.TransaksiEndpoint)
-                  .loadTransaksis(session),
+              (endpoints['transaksi'] as _i6.TransaksiEndpoint).deleteTransaksi(
+            session,
+            params['id'],
+          ),
         ),
       },
     );

@@ -9,11 +9,13 @@ class PageBannerWidget extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.iconColor,
+    this.backButton = false,
   });
 
   final String title;
   final IconData icon;
   final Color iconColor;
+  final bool backButton;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,19 @@ class PageBannerWidget extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                const Spacer(),
+                backButton
+                    ? GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 50,
+                        ),
+                      )
+                    : SizedBox()
               ],
             ),
           ],

@@ -9,7 +9,6 @@ import 'barang/barang_screen.dart';
 import 'daftar_pembelian/daftar_pembelian_screen.dart';
 import 'dashboard/dashboard_screen.dart';
 import 'supplier/supplier_screen.dart';
-import 'transaksi/transaksi_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({
@@ -160,15 +159,6 @@ class _MainScreenState extends State<MainScreen> {
               },
             ),
             const Divider(),
-            ListTile(
-              leading: const FaIcon(FontAwesomeIcons.moneyBillTransfer),
-              title: const Text('Transaksi'),
-              onTap: () {
-                Navigator.pop(context);
-                navigationTapped(4);
-              },
-            ),
-            const Divider(),
           ],
         ),
       ),
@@ -180,7 +170,6 @@ class _MainScreenState extends State<MainScreen> {
           DaftarPembelianScreen(),
           BarangScreen(),
           SupplierScreen(),
-          TransaksiScreen(),
         ],
       ),
     );

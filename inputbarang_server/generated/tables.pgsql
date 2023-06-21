@@ -36,7 +36,6 @@ ALTER TABLE ONLY "supplier"
 CREATE TABLE "transaksi" (
   "id" serial,
   "supplierId" integer NOT NULL,
-  "kode_faktur" text NOT NULL,
   "tanggal_transaksi" timestamp without time zone NOT NULL
 );
 

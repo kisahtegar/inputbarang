@@ -33,6 +33,15 @@ class DaftarBarangEndpoint extends Endpoint {
     return daftarBarang;
   }
 
+  /// Update DaftarBarang to the database.
+  Future<DaftarBarang?> findDaftarBarang(
+    Session session,
+    int daftarBarangId,
+  ) async {
+    var daftarBarang = await DaftarBarang.findById(session, daftarBarangId);
+    return daftarBarang;
+  }
+
   /// Delete DaftarBarang from database.
   Future<bool> deleteDaftarBarang(
     Session session,

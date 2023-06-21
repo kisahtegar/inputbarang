@@ -46,6 +46,14 @@ class _EndpointDaftarBarang extends _i1.EndpointRef {
         {'daftarBarang': daftarBarang},
       );
 
+  /// Update DaftarBarang to the database.
+  _i2.Future<_i3.DaftarBarang?> findDaftarBarang(int daftarBarangId) =>
+      caller.callServerEndpoint<_i3.DaftarBarang?>(
+        'daftarBarang',
+        'findDaftarBarang',
+        {'daftarBarangId': daftarBarangId},
+      );
+
   /// Delete DaftarBarang from database.
   _i2.Future<bool> deleteDaftarBarang(int id) =>
       caller.callServerEndpoint<bool>(
@@ -61,21 +69,39 @@ class _EndpointDaftarPembelian extends _i1.EndpointRef {
   @override
   String get name => 'daftarPembelian';
 
-  /// Adding DaftarPembelian to the database.
+  /// fetch DaftarPembelians from DB.
+  _i2.Future<List<_i4.DaftarPembelian>> getDaftarPembelians(
+          {String? keyword}) =>
+      caller.callServerEndpoint<List<_i4.DaftarPembelian>>(
+        'daftarPembelian',
+        'getDaftarPembelians',
+        {'keyword': keyword},
+      );
+
+  /// Add DaftarPembelian to the database.
   _i2.Future<_i4.DaftarPembelian> addDaftarPembelian(
-          _i4.DaftarPembelian item) =>
+          _i4.DaftarPembelian daftarPembelian) =>
       caller.callServerEndpoint<_i4.DaftarPembelian>(
         'daftarPembelian',
         'addDaftarPembelian',
-        {'item': item},
+        {'daftarPembelian': daftarPembelian},
       );
 
-  /// Load DaftarPembelians.
-  _i2.Future<List<_i4.DaftarPembelian>> loadDaftarPembelians() =>
-      caller.callServerEndpoint<List<_i4.DaftarPembelian>>(
+  /// Update DaftarPembelian to the database.
+  _i2.Future<_i4.DaftarPembelian> updateDaftarPembelian(
+          _i4.DaftarPembelian daftarPembelian) =>
+      caller.callServerEndpoint<_i4.DaftarPembelian>(
         'daftarPembelian',
-        'loadDaftarPembelians',
-        {},
+        'updateDaftarPembelian',
+        {'daftarPembelian': daftarPembelian},
+      );
+
+  /// Delete DaftarPembelian from database.
+  _i2.Future<bool> deleteDaftarPembelian(int id) =>
+      caller.callServerEndpoint<bool>(
+        'daftarPembelian',
+        'deleteDaftarPembelian',
+        {'id': id},
       );
 }
 
@@ -136,20 +162,27 @@ class _EndpointTransaksi extends _i1.EndpointRef {
   @override
   String get name => 'transaksi';
 
-  /// Adding Transaksi to the database.
-  _i2.Future<_i6.Transaksi> addTransaksi(_i6.Transaksi item) =>
+  /// fetch DaftarTransaksis from DB.
+  _i2.Future<List<_i6.Transaksi>> getDaftarTransaksis({String? keyword}) =>
+      caller.callServerEndpoint<List<_i6.Transaksi>>(
+        'transaksi',
+        'getDaftarTransaksis',
+        {'keyword': keyword},
+      );
+
+  /// Add Transaksi to the database.
+  _i2.Future<_i6.Transaksi> addTransaksi(_i6.Transaksi daftarTransaksi) =>
       caller.callServerEndpoint<_i6.Transaksi>(
         'transaksi',
         'addTransaksi',
-        {'item': item},
+        {'daftarTransaksi': daftarTransaksi},
       );
 
-  /// Load Transaksis.
-  _i2.Future<List<_i6.Transaksi>> loadTransaksis() =>
-      caller.callServerEndpoint<List<_i6.Transaksi>>(
+  /// Delete Transaksi from database.
+  _i2.Future<bool> deleteTransaksi(int id) => caller.callServerEndpoint<bool>(
         'transaksi',
-        'loadTransaksis',
-        {},
+        'deleteTransaksi',
+        {'id': id},
       );
 }
 
