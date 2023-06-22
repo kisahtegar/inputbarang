@@ -60,7 +60,7 @@ class PageBannerWidget extends StatelessWidget {
                           size: 50,
                         ),
                       )
-                    : SizedBox()
+                    : const SizedBox()
               ],
             ),
           ],

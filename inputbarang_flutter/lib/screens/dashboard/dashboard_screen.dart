@@ -16,12 +16,14 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   List<Supplier> _suppliers = [];
   List<DaftarBarang> _daftarBarangs = [];
+  List<DaftarPembelian> _daftarPembelians = [];
 
   @override
   void initState() {
     super.initState();
     fetchSuppliers();
     fetchDaftarBarangs();
+    fetchDaftarPembelians();
   }
 
   @override
@@ -60,7 +62,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   cardViewData(
                     title: 'Total Pembelian',
                     icon: FontAwesomeIcons.cartShopping,
-                    total: '2',
+                    total: _daftarPembelians.length.toString(),
                     iconColor: const Color.fromARGB(255, 159, 33, 209),
                   ),
                 ],
@@ -141,6 +143,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
   fetchDaftarBarangs() async {
     try {
       _daftarBarangs = await client.daftarBarang.getDaftarBarangs();
+      setState(() {});
+    } on Exception catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  /// Fetch daftar pembelian.
+  fetchDaftarPembelians() async {
+    try {
+      _daftarPembelians = await client.daftarPembelian.getDaftarPembelians();
       setState(() {});
     } on Exception catch (e) {
       debugPrint('$e');

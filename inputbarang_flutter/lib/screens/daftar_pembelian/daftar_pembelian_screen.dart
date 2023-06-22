@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:inputbarang_client/inputbarang_client.dart';
 import 'package:inputbarang_flutter/screens/daftar_pembelian/pembelian/pembelian_screen.dart';
 import 'package:inputbarang_flutter/screens/daftar_pembelian/transaksi/transaksi_screen.dart';
 

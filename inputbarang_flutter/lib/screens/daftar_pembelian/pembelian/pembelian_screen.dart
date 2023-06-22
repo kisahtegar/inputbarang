@@ -28,6 +28,7 @@ class _PembelianScreenState extends State<PembelianScreen> {
     super.initState();
     fetchDaftarPembelians();
     fetchSuppliers();
+    fetchDaftarBarangs();
   }
 
   @override
@@ -95,118 +96,132 @@ class _PembelianScreenState extends State<PembelianScreen> {
     TimeOfDay? timeSelected = TimeOfDay.now();
     DateTime? timeSelectedToDateTime;
 
+    // Supplier Controller
     Supplier? supplierSelected;
+    var namaSupplierController = TextEditingController();
 
     // Barang Controller
+    var kodeBarangController = TextEditingController();
+    var namaBarangController = TextEditingController();
+    var jenisBarangController = TextEditingController();
+    var namaBarangTersediaController = TextEditingController();
+    DaftarBarang? barangSelected;
 
     // Initialized state.
-    @override
-    void initState() {
-      super.initState();
-      dateController.text =
-          "${dateTimeSelected!.year}-${dateTimeSelected!.month.toString().padLeft(2, '0')}-${dateTimeSelected!.day.toString().padLeft(2, '0')}";
+    // @override
+    // void initState() {
+    //   super.initState();
+    //   dateController.text =
+    //       "${dateTimeSelected!.year}-${dateTimeSelected!.month.toString().padLeft(2, '0')}-${dateTimeSelected!.day.toString().padLeft(2, '0')}";
 
-      timeSelectedToDateTime = DateTime(
-        dateTimeSelected!.year,
-        dateTimeSelected!.month,
-        dateTimeSelected!.day,
-        timeSelected.hour,
-        timeSelected.minute,
-      );
-    }
+    //   timeSelectedToDateTime = DateTime(
+    //     dateTimeSelected!.year,
+    //     dateTimeSelected!.month,
+    //     dateTimeSelected!.day,
+    //     timeSelected.hour,
+    //     timeSelected.minute,
+    //   );
+    // }
 
     // Show dialog.
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-        return Dialog(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text(
-                  'Input Data Pembelian',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+        return SingleChildScrollView(
+          child: Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Input Data Pembelian',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
                   ),
-                ),
-                InputDataWidget(
-                  inputDataController: kodePembelianController,
-                  namaData: 'Kode Pembelian',
-                  hintText: 'Input kode pembelian',
-                  maxLength: 6,
-                ),
-                InputDataWidget(
-                  inputDataController: jumlahController,
-                  namaData: 'Jumlah Barang',
-                  hintText: 'Input jumlah barang',
-                  maxLength: 255,
-                ),
-                const Divider(),
-                InputDataWidget(
-                  inputDataController: hargaBarangController,
-                  namaData: 'Harga Barang',
-                  hintText: 'Input harga barang',
-                  maxLength: 255,
-                ),
-                const Divider(),
+                  InputDataWidget(
+                    inputDataController: kodePembelianController,
+                    namaData: 'Kode Pembelian',
+                    hintText: 'Input kode pembelian',
+                    maxLength: 6,
+                  ),
+                  const Divider(),
+                  InputDataWidget(
+                    inputDataController: jumlahController,
+                    namaData: 'Jumlah Barang',
+                    hintText: 'Input jumlah barang',
+                    maxLength: 255,
+                  ),
+                  const Divider(),
+                  InputDataWidget(
+                    inputDataController: hargaBarangController,
+                    namaData: 'Harga Barang',
+                    hintText: 'Input harga barang',
+                    maxLength: 255,
+                  ),
+                  const Divider(),
 
-                // DROP DOWN BUTTON SUPPLIER
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 90,
-                      child: Text(
-                        'Tanggal Transaksi',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                  // DROP DOWN BUTTON SUPPLIER
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 90,
+                        child: Text(
+                          'Nama Supplier',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 30),
-                    // FutureBuilder<List<Supplier>>(
-                    //   future: suppliers,
-                    //   builder: (context, snapshot) {
-                    //     if (!snapshot.hasData) {
-                    //       return const CircularProgressIndicator.adaptive();
-                    //     }
+                      const SizedBox(width: 30),
+                      // FutureBuilder<List<Supplier>>(
+                      //   future: suppliers,
+                      //   builder: (context, snapshot) {
+                      //     if (!snapshot.hasData) {
+                      //       return const CircularProgressIndicator.adaptive();
+                      //     }
 
-                    //     final loadedSuppliers = snapshot.data!;
+                      //     final loadedSuppliers = snapshot.data!;
 
-                    //     if (snapshot.hasData) {
-                    //       return Expanded(
-                    //         child: DropdownButton<Supplier>(
-                    //           value: supplierSelected,
-                    //           items: loadedSuppliers
-                    //               .map<DropdownMenuItem<Supplier>>(
-                    //             (Supplier supplier) {
-                    //               return DropdownMenuItem<Supplier>(
-                    //                 value: supplier,
-                    //                 child:
-                    //                     Text(supplier.nama_supplier.toString()),
-                    //               );
-                    //             },
-                    //           ).toList(),
-                    //           onChanged: (supplier) {
-                    //             setState(() {
-                    //               supplierSelected = supplier;
-                    //               supplierIndex = supplier?.id ?? 1;
-                    //             });
-                    //             debugPrint(supplierSelected.toString());
-                    //           },
-                    //         ),
-                    //       );
-                    //     }
-                    //     return const CircularProgressIndicator.adaptive();
-                    //   },
-                    // ),
+                      //     if (snapshot.hasData) {
+                      //       return Expanded(
+                      //         child: DropdownButton<Supplier>(
+                      //           value: supplierSelected,
+                      //           items: loadedSuppliers
+                      //               .map<DropdownMenuItem<Supplier>>(
+                      //             (Supplier supplier) {
+                      //               return DropdownMenuItem<Supplier>(
+                      //                 value: supplier,
+                      //                 child:
+                      //                     Text(supplier.nama_supplier.toString()),
+                      //               );
+                      //             },
+                      //           ).toList(),
+                      //           onChanged: (supplier) {
+                      //             setState(() {
+                      //               supplierSelected = supplier;
+                      //               supplierIndex = supplier?.id ?? 1;
+                      //             });
+                      //             debugPrint(supplierSelected.toString());
+                      //           },
+                      //         ),
+                      //       );
+                      //     }
+                      //     return const CircularProgressIndicator.adaptive();
+                      //   },
+                      // ),
 
-                    Expanded(
-                      child: DropdownButton<Supplier>(
+                      Expanded(
+                        child: TextField(
+                          controller: namaSupplierController,
+                          readOnly: true,
+                        ),
+                      ),
+                      DropdownButton<Supplier>(
                         value: supplierSelected,
                         items: suppliers.map<DropdownMenuItem<Supplier>>(
                           (Supplier supplier) {
@@ -219,172 +234,290 @@ class _PembelianScreenState extends State<PembelianScreen> {
                         onChanged: (supplier) {
                           setState(() {
                             supplierSelected = supplier;
-                            // supplierIndex = supplier?.id ?? 1;
+
+                            if (supplier != null) {
+                              String newSupplierName = supplier.nama_supplier;
+                              namaSupplierController.text = newSupplierName;
+                            }
                           });
-                          debugPrint(supplierSelected.toString());
                         },
                       ),
-                    )
-                  ],
-                ),
+                    ],
+                  ),
+                  const Divider(),
 
-                // Date Picker
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 90,
-                      child: Text(
-                        'Tanggal Transaksi',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 30),
-                    Expanded(
-                      child: TextField(
-                        controller: dateController,
-                        readOnly: true,
-                        decoration: const InputDecoration(
-                          icon: Icon(Icons.calendar_today),
-                          hintText: 'Input tanggal',
-                          counterStyle: TextStyle(
-                            height: double.minPositive,
+                  // Date Picker
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 90,
+                        child: Text(
+                          'Tanggal Transaksi',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
                         ),
-                        onTap: () async {
-                          DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(2023),
-                            lastDate: DateTime(2100),
-                          );
+                      ),
+                      const SizedBox(width: 30),
+                      Expanded(
+                        child: TextField(
+                          controller: dateController,
+                          readOnly: true,
+                          decoration: const InputDecoration(
+                            icon: Icon(Icons.calendar_today),
+                            hintText: 'Input tanggal',
+                            counterStyle: TextStyle(
+                              height: double.minPositive,
+                            ),
+                          ),
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2023),
+                              lastDate: DateTime(2100),
+                            );
 
-                          if (pickedDate != null) {
-                            String formattedDate =
-                                DateFormat('yyyy-MM-dd').format(pickedDate);
-                            setState(() {
-                              dateController.text = formattedDate;
-                              dateTimeSelected = pickedDate;
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                              setState(() {
+                                dateController.text = formattedDate;
+                                dateTimeSelected = pickedDate;
 
-                              // Convert TimeOfDay to DateTime
-                              timeSelectedToDateTime = DateTime(
-                                pickedDate.year,
-                                pickedDate.month,
-                                pickedDate.day,
-                                timeSelected.hour,
-                                timeSelected.minute,
+                                // Convert TimeOfDay to DateTime
+                                timeSelectedToDateTime = DateTime(
+                                  pickedDate.year,
+                                  pickedDate.month,
+                                  pickedDate.day,
+                                  timeSelected.hour,
+                                  timeSelected.minute,
+                                );
+                              });
+                            } else {}
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Input Data Barang Tersedia',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+
+                  Row(
+                    children: [
+                      const SizedBox(
+                        width: 90,
+                        child: Text(
+                          'Nama Barang Tersedia',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 30),
+                      Expanded(
+                        child: TextField(
+                          controller: namaBarangTersediaController,
+                          readOnly: true,
+                        ),
+                      ),
+                      DropdownButton<DaftarBarang>(
+                        value: barangSelected,
+                        items:
+                            daftarBarangs.map<DropdownMenuItem<DaftarBarang>>(
+                          (DaftarBarang daftarBarang) {
+                            return DropdownMenuItem<DaftarBarang>(
+                              value: daftarBarang,
+                              child: Text(daftarBarang.nama_barang.toString()),
+                            );
+                          },
+                        ).toList(),
+                        onChanged: (daftarBarang) {
+                          setState(() {
+                            barangSelected = daftarBarang;
+
+                            if (daftarBarang != null) {
+                              String newBarangTersedia =
+                                  daftarBarang.nama_barang;
+                              namaBarangTersediaController.text =
+                                  newBarangTersedia;
+                            }
+                          });
+                          debugPrint(barangSelected.toString());
+                        },
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 30),
+                  const Text(
+                    'Input Data Barang Baru',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  const Divider(),
+                  InputDataWidget(
+                    inputDataController: kodeBarangController,
+                    namaData: 'Kode Barang',
+                    hintText: 'Input kode barang',
+                    maxLength: 6,
+                  ),
+                  const Divider(),
+                  InputDataWidget(
+                    inputDataController: namaBarangController,
+                    namaData: 'Nama Barang',
+                    hintText: 'Input nama barang',
+                    maxLength: 255,
+                  ),
+                  const Divider(),
+                  InputDataWidget(
+                    inputDataController: jenisBarangController,
+                    namaData: 'Jenis Barang',
+                    hintText: 'Input jenis barang',
+                    maxLength: 10,
+                  ),
+                  const Divider(),
+                  const SizedBox(height: 50),
+
+                  // Row of buttons save and exit.
+                  Row(
+                    children: [
+                      // Button: Save button.
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () async {
+                            // ADD TRANSAKSI
+                            var newTransaksi = Transaksi(
+                              supplierId: supplierSelected?.id ?? 0,
+                              tanggal_transaksi: timeSelectedToDateTime!,
+                            );
+                            var resultTransaksi = await client.transaksi
+                                .addTransaksi(newTransaksi);
+                            debugPrint(resultTransaksi.toString());
+
+                            // ADD BARANG
+                            if (barangSelected != null) {
+                              // ADD DAFTAR PEMBELIAN
+                              var newDaftarPembelian = DaftarPembelian(
+                                transaksiId: resultTransaksi.id!,
+                                daftarBarangId: barangSelected?.id ?? 0,
+                                kode_pembelian: kodePembelianController.text,
+                                jumlah: int.parse(jumlahController.text),
+                                harga_barang:
+                                    int.parse(hargaBarangController.text),
                               );
-                            });
-                          } else {}
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                const Divider(),
-                const SizedBox(height: 50),
-                Row(
-                  children: [
-                    // Button: Save button.
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () async {
-                          // if (daftarBarang != null) {
-                          //   daftarBarang.nama_barang =
-                          //       namaBarangController.text;
-                          //   daftarBarang.jenis_barang =
-                          //       jenisBarangController.text;
-                          //   updateDaftarBarang(daftarBarang);
-                          //   Navigator.of(context).pop();
-                          // } else {
-                          //   var newDaftarBarang = DaftarBarang(
-                          //     kode_barang: kodeBarangController.text,
-                          //     nama_barang: namaBarangController.text,
-                          //     jenis_barang: jenisBarangController.text,
-                          //   );
-                          //   addDaftarBarang(newDaftarBarang);
-                          //   Navigator.of(context).pop();
-                          // }
+                              addDaftarPembelian(newDaftarPembelian);
+                            } else {
+                              var newDaftarBarang = DaftarBarang(
+                                kode_barang: kodeBarangController.text,
+                                nama_barang: namaBarangController.text,
+                                jenis_barang: jenisBarangController.text,
+                              );
+                              var resultDaftarBarang = await client.daftarBarang
+                                  .addDaftarBarang(newDaftarBarang);
+                              debugPrint(resultDaftarBarang.toString());
 
-                          // ADD TRANSAKSI
-                          var newTransaksi = Transaksi(
-                            supplierId: supplierSelected?.id ?? 0,
-                            tanggal_transaksi: timeSelectedToDateTime!,
-                          );
-                          var resultTransaksi =
-                              await client.transaksi.addTransaksi(newTransaksi);
+                              // ADD DAFTAR PEMBELIAN
+                              var newDaftarPembelian = DaftarPembelian(
+                                transaksiId: resultTransaksi.id!,
+                                daftarBarangId: resultDaftarBarang.id!,
+                                kode_pembelian: kodePembelianController.text,
+                                jumlah: int.parse(jumlahController.text),
+                                harga_barang:
+                                    int.parse(hargaBarangController.text),
+                              );
+                              addDaftarPembelian(newDaftarPembelian);
+                            }
+                            // var newDaftarBarang = DaftarBarang(
+                            //   kode_barang: kodeBarangController.text,
+                            //   nama_barang: namaBarangController.text,
+                            //   jenis_barang: jenisBarangController.text,
+                            // );
+                            // var resultDaftarBarang = await client.daftarBarang
+                            //     .addDaftarBarang(newDaftarBarang);
+                            // debugPrint(resultDaftarBarang.toString());
 
-                          // ADD BARANG
+                            // // ADD DAFTAR PEMBELIAN
+                            // var newDaftarPembelian = DaftarPembelian(
+                            //   transaksiId: resultTransaksi.id!,
+                            //   daftarBarangId:
+                            //       barangSelected?.id ?? resultDaftarBarang.id!,
+                            //   kode_pembelian: kodePembelianController.text,
+                            //   jumlah: int.parse(jumlahController.text),
+                            //   harga_barang:
+                            //       int.parse(hargaBarangController.text),
+                            // );
+                            // addDaftarPembelian(newDaftarPembelian);
 
-                          // ADD DAFTAR PEMBELIAN
-                          var newDaftarPembelian = DaftarPembelian(
-                            transaksiId: resultTransaksi.id!,
-                            daftarBarangId: 1,
-                            kode_pembelian: kodePembelianController.text,
-                            jumlah: int.parse(jumlahController.text),
-                            harga_barang: int.parse(hargaBarangController.text),
-                          );
-                          addDaftarPembelian(newDaftarPembelian);
-
-                          // Close Dialog
-                          Navigator.of(context).pop();
-                        },
-                        style: TextButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.save_alt_outlined,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Save',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                            // Close Dialog
+                            Navigator.of(context).pop();
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.save_alt_outlined,
                                 color: Colors.white,
-                                fontSize: 15,
                               ),
-                            ),
-                          ],
+                              Text(
+                                'Save',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 10),
+                      const SizedBox(width: 10),
 
-                    // Button: Cancel button.
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style:
-                            TextButton.styleFrom(backgroundColor: Colors.red),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.exit_to_app,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Exit',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                      // Button: Cancel button.
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style:
+                              TextButton.styleFrom(backgroundColor: Colors.red),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.exit_to_app,
                                 color: Colors.white,
-                                fontSize: 15,
                               ),
-                            ),
-                          ],
+                              Text(
+                                'Exit',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
