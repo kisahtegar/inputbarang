@@ -44,7 +44,6 @@ ALTER TABLE ONLY "supplier"
 CREATE TABLE "transaksi" (
   "id" serial,
   "supplierId" integer NOT NULL,
-  "kode_faktur" char(6) UNIQUE NOT NULL,
   "tanggal_transaksi" timestamp without time zone NOT NULL
 );
 
@@ -56,7 +55,9 @@ ALTER TABLE ONLY "transaksi"
     FOREIGN KEY("supplierId")
       REFERENCES supplier(id)
         ON DELETE CASCADE;
-
+ 
+ 
+ 
 --
 -- Class DaftarPembelian as table daftar_pembelian
 --
