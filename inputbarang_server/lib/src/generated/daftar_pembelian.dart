@@ -13,7 +13,6 @@ class DaftarPembelian extends _i1.TableRow {
     int? id,
     required this.transaksiId,
     required this.daftarBarangId,
-    required this.kode_pembelian,
     required this.jumlah,
     required this.harga_barang,
   }) : super(id);
@@ -28,8 +27,6 @@ class DaftarPembelian extends _i1.TableRow {
           .deserialize<int>(jsonSerialization['transaksiId']),
       daftarBarangId: serializationManager
           .deserialize<int>(jsonSerialization['daftarBarangId']),
-      kode_pembelian: serializationManager
-          .deserialize<String>(jsonSerialization['kode_pembelian']),
       jumlah:
           serializationManager.deserialize<int>(jsonSerialization['jumlah']),
       harga_barang: serializationManager
@@ -43,8 +40,6 @@ class DaftarPembelian extends _i1.TableRow {
 
   int daftarBarangId;
 
-  String kode_pembelian;
-
   int jumlah;
 
   int harga_barang;
@@ -57,7 +52,6 @@ class DaftarPembelian extends _i1.TableRow {
       'id': id,
       'transaksiId': transaksiId,
       'daftarBarangId': daftarBarangId,
-      'kode_pembelian': kode_pembelian,
       'jumlah': jumlah,
       'harga_barang': harga_barang,
     };
@@ -69,7 +63,6 @@ class DaftarPembelian extends _i1.TableRow {
       'id': id,
       'transaksiId': transaksiId,
       'daftarBarangId': daftarBarangId,
-      'kode_pembelian': kode_pembelian,
       'jumlah': jumlah,
       'harga_barang': harga_barang,
     };
@@ -81,7 +74,6 @@ class DaftarPembelian extends _i1.TableRow {
       'id': id,
       'transaksiId': transaksiId,
       'daftarBarangId': daftarBarangId,
-      'kode_pembelian': kode_pembelian,
       'jumlah': jumlah,
       'harga_barang': harga_barang,
     };
@@ -101,9 +93,6 @@ class DaftarPembelian extends _i1.TableRow {
         return;
       case 'daftarBarangId':
         daftarBarangId = value;
-        return;
-      case 'kode_pembelian':
-        kode_pembelian = value;
         return;
       case 'jumlah':
         jumlah = value;
@@ -240,8 +229,6 @@ class DaftarPembelianTable extends _i1.Table {
 
   final daftarBarangId = _i1.ColumnInt('daftarBarangId');
 
-  final kode_pembelian = _i1.ColumnString('kode_pembelian');
-
   final jumlah = _i1.ColumnInt('jumlah');
 
   final harga_barang = _i1.ColumnInt('harga_barang');
@@ -251,7 +238,6 @@ class DaftarPembelianTable extends _i1.Table {
         id,
         transaksiId,
         daftarBarangId,
-        kode_pembelian,
         jumlah,
         harga_barang,
       ];

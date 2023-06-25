@@ -86,7 +86,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
   /// Widget that display dialog article.
   _showDaftarPembelianDialog({DaftarPembelian? daftarPembelian}) {
     // Daftar Pembelian Controller
-    var kodePembelianController = TextEditingController();
     var jumlahController = TextEditingController();
     var hargaBarangController = TextEditingController();
 
@@ -101,7 +100,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
     var namaSupplierController = TextEditingController();
 
     // Barang Controller
-    var kodeBarangController = TextEditingController();
     var namaBarangController = TextEditingController();
     var jenisBarangController = TextEditingController();
     var namaBarangTersediaController = TextEditingController();
@@ -141,12 +139,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                     ),
-                  ),
-                  InputDataWidget(
-                    inputDataController: kodePembelianController,
-                    namaData: 'Kode Pembelian',
-                    hintText: 'Input kode pembelian',
-                    maxLength: 6,
                   ),
                   const Divider(),
                   InputDataWidget(
@@ -367,12 +359,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
                     ),
                   ),
                   const Divider(),
-                  InputDataWidget(
-                    inputDataController: kodeBarangController,
-                    namaData: 'Kode Barang',
-                    hintText: 'Input kode barang',
-                    maxLength: 6,
-                  ),
                   const Divider(),
                   InputDataWidget(
                     inputDataController: namaBarangController,
@@ -412,7 +398,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
                               var newDaftarPembelian = DaftarPembelian(
                                 transaksiId: resultTransaksi.id!,
                                 daftarBarangId: barangSelected?.id ?? 0,
-                                kode_pembelian: kodePembelianController.text,
                                 jumlah: int.parse(jumlahController.text),
                                 harga_barang:
                                     int.parse(hargaBarangController.text),
@@ -420,7 +405,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
                               addDaftarPembelian(newDaftarPembelian);
                             } else {
                               var newDaftarBarang = DaftarBarang(
-                                kode_barang: kodeBarangController.text,
                                 nama_barang: namaBarangController.text,
                                 jenis_barang: jenisBarangController.text,
                               );
@@ -432,7 +416,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
                               var newDaftarPembelian = DaftarPembelian(
                                 transaksiId: resultTransaksi.id!,
                                 daftarBarangId: resultDaftarBarang.id!,
-                                kode_pembelian: kodePembelianController.text,
                                 jumlah: int.parse(jumlahController.text),
                                 harga_barang:
                                     int.parse(hargaBarangController.text),
@@ -556,12 +539,12 @@ class _PembelianScreenState extends State<PembelianScreen> {
             tooltip: "Total Harga",
           ),
           DataColumn(
-            label: Text('Transaksi ID'),
+            label: Text('Kode Transaksi'),
             numeric: false,
             tooltip: "Transaksi ID",
           ),
           DataColumn(
-            label: Text('Daftar Barang ID'),
+            label: Text('Kode Barang'),
             numeric: false,
             tooltip: "Daftar Barang ID",
           ),
@@ -578,7 +561,7 @@ class _PembelianScreenState extends State<PembelianScreen> {
           return DataRow(
             cells: [
               DataCell(Text('${index + 1}')),
-              DataCell(Text(daftarPembelian.kode_pembelian)),
+              DataCell(Text(daftarPembelian.id.toString())),
               DataCell(Text(daftarPembelian.jumlah.toString())),
               DataCell(Text(daftarPembelian.harga_barang.toString())),
               DataCell(Text(daftarPembelian.transaksiId.toString())),

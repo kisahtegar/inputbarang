@@ -70,12 +70,11 @@ class _EndpointDaftarPembelian extends _i1.EndpointRef {
   String get name => 'daftarPembelian';
 
   /// fetch DaftarPembelians from DB.
-  _i2.Future<List<_i4.DaftarPembelian>> getDaftarPembelians(
-          {String? keyword}) =>
+  _i2.Future<List<_i4.DaftarPembelian>> getDaftarPembelians() =>
       caller.callServerEndpoint<List<_i4.DaftarPembelian>>(
         'daftarPembelian',
         'getDaftarPembelians',
-        {'keyword': keyword},
+        {},
       );
 
   /// Add DaftarPembelian to the database.

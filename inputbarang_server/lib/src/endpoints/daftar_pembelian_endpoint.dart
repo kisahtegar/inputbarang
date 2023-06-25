@@ -4,15 +4,9 @@ import '../generated/protocol.dart' show DaftarPembelian;
 
 class DaftarPembelianEndpoint extends Endpoint {
   /// fetch DaftarPembelians from DB.
-  Future<List<DaftarPembelian>> getDaftarPembelians(
-    Session session, {
-    String? keyword,
-  }) async {
+  Future<List<DaftarPembelian>> getDaftarPembelians(Session session) async {
     return await DaftarPembelian.find(
       session,
-      where: (t) => keyword != null
-          ? t.kode_pembelian.like('%$keyword%')
-          : Constant(true),
     );
   }
 

@@ -11,6 +11,5 @@ table: daftar_pembelian
 fields:
   transaksiId: int, parent=transaksi
   daftarBarangId: int, parent=daftar_barang
-  kode_pembelian: String
   jumlah: int
   harga_barang: int

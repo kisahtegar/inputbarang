@@ -159,22 +159,13 @@ class Endpoints extends _i1.EndpointDispatch {
       methodConnectors: {
         'getDaftarPembelians': _i1.MethodConnector(
           name: 'getDaftarPembelians',
-          params: {
-            'keyword': _i1.ParameterDescription(
-              name: 'keyword',
-              type: _i1.getType<String?>(),
-              nullable: true,
-            )
-          },
+          params: {},
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
               (endpoints['daftarPembelian'] as _i3.DaftarPembelianEndpoint)
-                  .getDaftarPembelians(
-            session,
-            keyword: params['keyword'],
-          ),
+                  .getDaftarPembelians(session),
         ),
         'addDaftarPembelian': _i1.MethodConnector(
           name: 'addDaftarPembelian',
