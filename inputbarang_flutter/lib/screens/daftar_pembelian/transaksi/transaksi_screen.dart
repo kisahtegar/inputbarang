@@ -81,7 +81,7 @@ class _TransaksiScreenState extends State<TransaksiScreen> {
             tooltip: "No.",
           ),
           DataColumn(
-            label: Text('ID Transaksi'),
+            label: Text('Kode Faktur'),
             numeric: false,
             tooltip: "Id Transaksi",
           ),
@@ -91,7 +91,7 @@ class _TransaksiScreenState extends State<TransaksiScreen> {
             tooltip: "Nama Barang",
           ),
           DataColumn(
-            label: Text('ID Supplier'),
+            label: Text('Kode Supplier'),
             numeric: false,
             tooltip: "ID Supplier",
           ),

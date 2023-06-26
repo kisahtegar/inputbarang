@@ -526,7 +526,7 @@ class _PembelianScreenState extends State<PembelianScreen> {
           DataColumn(
             label: Text('Kode Pembelian'),
             numeric: false,
-            tooltip: "Kode Barang",
+            tooltip: "Id Pembelian",
           ),
           DataColumn(
             label: Text('Jumlah'),
@@ -548,11 +548,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
             numeric: false,
             tooltip: "Daftar Barang ID",
           ),
-          // DataColumn(
-          //   label: Text('Aksi'),
-          //   numeric: false,
-          //   tooltip: "Aksi",
-          // ),
         ],
         rows: listDaftarPembelian.map((daftarPembelian) {
           // get index
@@ -566,62 +561,6 @@ class _PembelianScreenState extends State<PembelianScreen> {
               DataCell(Text(daftarPembelian.harga_barang.toString())),
               DataCell(Text(daftarPembelian.transaksiId.toString())),
               DataCell(Text(daftarPembelian.daftarBarangId.toString())),
-              // DataCell(
-              //   Row(
-              //     children: [
-              //       TextButton(
-              //         onPressed: () {
-              //           _showDaftarBarangDialog(daftarBarang: daftarBarang);
-              //         },
-              //         style:
-              //             TextButton.styleFrom(backgroundColor: Colors.green),
-              //         child: const Row(
-              //           children: [
-              //             FaIcon(
-              //               FontAwesomeIcons.pen,
-              //               color: Colors.white,
-              //               size: 13,
-              //             ),
-              //             SizedBox(width: 5),
-              //             Text(
-              //               'Update',
-              //               style: TextStyle(
-              //                 color: Colors.white,
-              //                 fontWeight: FontWeight.bold,
-              //                 fontSize: 15,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //       const SizedBox(width: 10),
-              //       TextButton(
-              //         onPressed: () {
-              //           deleteDaftarBarang(daftarBarang.id!);
-              //         },
-              //         style: TextButton.styleFrom(backgroundColor: Colors.red),
-              //         child: const Row(
-              //           children: [
-              //             FaIcon(
-              //               FontAwesomeIcons.trash,
-              //               color: Colors.white,
-              //               size: 13,
-              //             ),
-              //             SizedBox(width: 5),
-              //             Text(
-              //               'Delete',
-              //               style: TextStyle(
-              //                 color: Colors.white,
-              //                 fontWeight: FontWeight.bold,
-              //                 fontSize: 15,
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           );
         }).toList(),
